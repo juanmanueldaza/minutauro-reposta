@@ -1,27 +1,6 @@
-Based on the provided specification, I will write the code for the files mentioned.
+It seems like you're trying to set up an Express.js server with authentication using a GitLab Personal Access Token for authentication. Here's how your `index.js` and other related files should look:
 
-Here is the implementation of the `package.json` file:
-```json
-{
-  "name": "minutauro",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC,
-  "description": "This project implements authentication using a GitLab API token.It utilizes the `node-gitlab` library to interact with the GitLab API.",
-  "dependencies": {
-    "express": "^4.17.1}",
-    "node-gitlab": "^2.0.3",
-    "jsonwebtoken": "^8.5.1",
-  "bcryptjs": "2.4.0",
-  "dotenv": "^10.0.0"
-}
-```
-Here is the implementation of `index.js` file:
+### index.js
 ```javascript
 const express = require('express');
 const app = express();
@@ -30,18 +9,19 @@ const authRouter = require('./routes/auth');
 app.use(express.json());
 app.use('/api/auth', authRouter);
 
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`Application is running on port ${port}`);
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('An error occurred: ', err);
   res.status(500).send('Internal Server Error');
 });
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Application is running on port ${PORT}`);
+});
 ```
-Here is the implementation of `routes/auth.js` file:
+
+### routes/auth.js
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -61,7 +41,8 @@ router.get('/test', async (req, res) => {
 
 module.exports = router;
 ```
-Here is the implementation of `gitlab.js` file:
+
+### gitlab.js
 ```javascript
 const { GitlabApi } = require('node-gitlab');
 
@@ -84,10 +65,7 @@ class GitlabClient {
 
 module.exports.GitlabClient = GitlabClient;
 ```
-Here is the implementation of `.env` file:
-```makefile
-GITLAB_TOKEN=glpat-ocQoFzAZTyYyYyQZ2L2L2L2
-```
-Note: Please replace `project_id` with your actual project ID and `glpat-ocQoFzAZTyYyYyQZ2L2L2L2` with your actual GitLab Personal Access Token.
 
-Also, make sure to install the required dependencies by running `npm install express node-gitlab jsonwebtoken bcryptjs dotenv` in your terminal.
+### .env
+```makefile
+GITLAB_TOKEN=glpat-ocQoFzAZTyYyYyQZ2
